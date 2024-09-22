@@ -7,37 +7,53 @@
     <title>電卓</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Roboto', sans-serif;
+            background-color: #2b2b2b;
+            color: #f4f4f9;
             text-align: center;
-            padding: 50px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
-        
+
         h1 {
-            color: #333;
+            font-size: 48px;
+            color: #ffffff;
+            margin-bottom: 20px;
         }
 
         input {
-            width: 50%;
-            padding: 15px;
-            margin-bottom: 10px;
+            width: 300px;
+            padding: 20px;
             font-size: 24px;
+            border: none;
+            border-radius: 10px;
             text-align: right;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            background-color: #444;
+            color: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
         }
 
         button {
-            width: 15%;
             padding: 20px;
-            margin: 5px;
-            font-size: 20px;
+            font-size: 24px;
             background-color: #6200ea;
-            color: white;
+            color: #fff;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
@@ -64,45 +80,38 @@
             background-color: #d84315;
         }
 
-        footer {
-            margin-top: 30px;
-            font-size: 12px;
-        }
-
-        .loading {
+        .loading-overlay {
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            color: #6200ea;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            z-index: 9999;
         }
 
-        .loading span {
-            display: inline-block;
-            animation: blink 1.5s infinite;
+        .loading-overlay .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #ffffff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
         }
 
-        .loading span:nth-child(2) {
-            animation-delay: 0.5s;
-        }
-
-        .loading span:nth-child(3) {
-            animation-delay: 1s;
-        }
-
-        @keyframes blink {
+        @keyframes spin {
             0% {
-                opacity: 0;
+                transform: rotate(0deg);
             }
-
-            50% {
-                opacity: 1;
-            }
-
             100% {
-                opacity: 0;
+                transform: rotate(360deg);
             }
         }
     </style>
