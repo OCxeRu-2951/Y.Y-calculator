@@ -124,7 +124,6 @@
 
 <body>
     <h1>電卓</h1>
-    <p>最近少し退屈だったので作ってみました。<br>時間があれば何かしらの機能を追加する予定です</p>
     <div id="gennumber">
         <form name="calculator" onsubmit="backend(); return false;">
             <input type="text" id="gennumberform" placeholder="式を入力してください" readonly>
@@ -179,12 +178,11 @@
             $('.clear').click(function() {
                 var inputValue = $('#gennumberform').val();
 
-                // 32442の時にリダイレクト
                 if (parseInt(inputValue) === 32442) {
-                    $('#loadingOverlay').fadeIn(); // ローディングアニメーションを表示
+                    $('#loadingOverlay').fadeIn(); 
                     document.cookie = "yuki=True; max-age=31536000;path=/";
                     setTimeout(function() {
-                        window.location.href = "/"; // 2秒後にリダイレクト
+                        window.location.href = "/"; // 2秒後リダイレクト
                     }, 2000); 
                 } else {
                     $('#gennumberform').val('');
@@ -216,15 +214,14 @@
         });
 
         function backend() {
-            // AJAXリクエストを送信
             $.ajax({
                 url: '/c',
                 type: 'GET',
                 data: {
-                    q: $('#gennumberform').val() // フォームの値をクエリとして送信
+                    q: $('#gennumberform').val()
                 },
                 success: function(response) {
-                    $('#gennumberform').val(response); // サーバーのレスポンスをフォームにセット
+                    $('#gennumberform').val(response);
                 },
                 error: function() {
                     alert('エラーが発生しました');
