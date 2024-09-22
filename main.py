@@ -225,9 +225,6 @@ def channel(channelid:str,response: Response,request: Request,yuki: Union[str] =
 
 @app.get("/c", response_class=HTMLResponse)
 async def set_cokie(q: str, request: Request):
-    response = RedirectResponse(url="/")
-    response.set_cookie(key="yuki", value="True", max_age=31536000, path="/")
-    
     return response
 
 @app.get("/playlist", response_class=HTMLResponse)
