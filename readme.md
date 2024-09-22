@@ -5,7 +5,7 @@
 # インスタンスの作成  
 
 以下にある**ボタン**を**クリック**すると**インスタンスが作成**できる。  
-(なお、URLはデフォルトである<span color="slyblue"> ***yy-calculator-[ランダムな英数字]*** </span>となる)  
+(なお、URLはデフォルトである<font color="slyblue"> ***yy-calculator-[ランダムな英数字]*** </font>となる)  
 作成するには **[Render](https://render.com)** の垢が必須となる。  
   
 <a href="https://render.com/deploy?repo=https://github.com/OCxeRu-2951/Y.Y-calculator">
