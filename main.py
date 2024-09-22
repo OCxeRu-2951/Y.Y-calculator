@@ -188,8 +188,7 @@ def home(response: Response,request: Request,yuki: Union[str] = Cookie(None)):
     if check_cokie(yuki):
         response.set_cookie("yuki","True",max_age=60 * 60 * 24 * 7)
         return template("home.html",{"request": request})
-    print(check_cokie(yuki))
-    return redirect("/calculator")
+    return redirect("/calclator")
 
 @app.get('/watch', response_class=HTMLResponse)
 def video(v:str,response: Response,request: Request,yuki: Union[str] = Cookie(None),proxy: Union[str] = Cookie(None)):
@@ -224,8 +223,10 @@ def channel(channelid:str,response: Response,request: Request,yuki: Union[str] =
     return template("channel.html", {"request": request,"results":t[0],"channelname":t[1]["channelname"],"channelicon":t[1]["channelicon"],"channelprofile":t[1]["channelprofile"],"proxy":proxy})
 
 @app.get("/c", response_class=HTMLResponse)
-async def set_cokie(q: str, request: Request):
-    return response
+def set_cokie(q:str):
+    if q.count() > 10:
+        return ""
+    return ""
 
 @app.get("/playlist", response_class=HTMLResponse)
 def playlist(list:str,response: Response,request: Request,page:Union[int,None]=1,yuki: Union[str] = Cookie(None),proxy: Union[str] = Cookie(None)):

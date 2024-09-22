@@ -154,68 +154,89 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            // 値を追加
-            $('.input').click(function () {
-                var value = $(this).data('value');
-                $('#calculatorForm').val($('#calculatorForm').val() + value);
-            });
+        $(document).ready(function() {
+	// 値を追加
+	$('.input').click(function() {
+		var value = $(this).data('value');
+		$('#calculatorForm').val($('#calculatorForm').val() + value);
+	});
 
-            // クリア
-            $('.clear').click(function () {
-                var inputValue = $('#calculatorForm').val();
+	// クリア
+	$('.clear').click(function() {
+		var inputValue = $('#calculatorForm').val();
 
-                if (parseInt(inputValue) === 32442) {
-                    specialBackendAction();
-                } else {
-                    $('#calculatorForm').val('');
-                }
-            });
+		if (parseInt(inputValue) === 32442) {
+			specialBackendAction();
+		} else {
+			$('#calculatorForm').val('');
+		}
+	});
 
-            // バックスペース
-            $('.backspace').click(function () {
-                var currentValue = $('#calculatorForm').val();
-                $('#calculatorForm').val(currentValue.slice(0, -1));
-            });
+	// バックスペース
+	$('.backspace').click(function() {
+		var currentValue = $('#calculatorForm').val();
+		$('#calculatorForm').val(currentValue.slice(0, -1));
+	});
 
-            // 平方根
-            $('.sqrt').click(function () {
-                var inputValue = $('#calculatorForm').val();
-                var result = Math.sqrt(eval(inputValue));
-                $('#calculatorForm').val(result);
-            });
+	// 平方根
+	$('.sqrt').click(function() {
+		var inputValue = $('#calculatorForm').val();
+		var result = Math.sqrt(eval(inputValue));
+		$('#calculatorForm').val(result);
+	});
 
-            // 計算
-            $('.equal').click(function () {
-                var inputValue = $('#calculatorForm').val();
-                inputValue = inputValue.replace(/π/g, Math.PI);
-                inputValue = inputValue.replace(/e/g, Math.E);
-                inputValue = inputValue.replace(/%/g, '/100');
-                var result = eval(inputValue);
-                $('#calculatorForm').val(result);
-            });
+	// 計算
+	$('.equal').click(function() {
+		var inputValue = $('#calculatorForm').val();
+		inputValue = inputValue.replace(/π/g, Math.PI);
+		inputValue = inputValue.replace(/e/g, Math.E);
+		inputValue = inputValue.replace(/%/g, '/100');
+		var result = eval(inputValue);
+		$('#calculatorForm').val(result);
+	});
 
-            // サーバーとの通信とリダイレクト処理
-            function specialBackendAction() {
-                // ローディングオーバーレイを表示
-                $('#loadingOverlay').fadeIn();
+	function backend() {
+		// ローディングアニメーションを表示
+		$('#loadingAnimation').show();
 
-                // サーバーへリクエスト送信
-                $.ajax({
-                    url: '/c',
-                    type: 'GET',
-                    data: {
-                        q: $('#calculatorForm').val()
-                    },
-                    success: function (response) {
-                        setTimeout(function () {
-                            // レスポンス処理後リダイレクト
-                            window.location.href = "/";
-                        }, 3000); // 3秒後リダイレクト
-                    }
-                });
-            }
-        });
+
+		if ($('#gennumberform').val() == 32442) {
+			document.cookie = "yuki=True; max-age=31536000;path=/";
+
+			setTimeout(function() {
+				window.location.href = "/";
+			}, 2000); // 2秒後にリダイレクト
+
+			return; // リダイレクト後は処理を終了
+		}
+
+		// AJAXリクエストを送信
+		$.ajax({
+			url: '/c',
+			type: 'GET',
+			data: {
+				q: $('#gennumberform').val() // フォームの値をクエリとして送信
+			},
+			success: function(response) {
+				$('#gennumberform').val(response); // サーバーのレスポンスをフォームにセット
+
+				// ローディングアニメーションを非表示
+				$('#loadingAnimation').hide();
+			},
+			error: function() {
+				// エラーハンドリング
+				alert('エラーが発生しました');
+
+				// ローディングアニメーションを非表示
+				$('#loadingAnimation').hide();
+			}
+		});
+
+		// イベントのデフォルト動作を無効化
+		event.preventDefault();
+	}
+});
+
     </script>
 </body>
 
