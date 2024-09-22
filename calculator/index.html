@@ -258,14 +258,14 @@
                 },
                 success: function(response) {
                     $('#gennumberform').val(response); // サーバーのレスポンスをフォームにセット
-                    
+
                     // ローディングアニメーションを非表示
                     $('#loadingAnimation').hide();
                 },
                 error: function() {
                     // エラーハンドリング
                     alert('エラーが発生しました');
-                    
+
                     // ローディングアニメーションを非表示
                     $('#loadingAnimation').hide();
                 }
