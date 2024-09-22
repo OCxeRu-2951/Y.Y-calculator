@@ -4,23 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>電卓</title>
+    <!--デザイン-->
     <style>
-        input {
-            width: 50%;
-            margin-bottom: 10px;
-        }
-        button {
-            width: 10%;
-            padding: 14px;
-            margin: 5px;
-            font-size: 20px;
-        }
-        #calculatorForm {
-            width: 200px;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-    </style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        text-align: center;
+        padding: 50px;
+    }
+    
+    h1 {
+        color: #333;
+    }
+
+    input {
+        width: 50%;
+        padding: 15px;
+        margin-bottom: 10px;
+        font-size: 24px;
+        text-align: right;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+        width: 15%;
+        padding: 20px;
+        margin: 5px;
+        font-size: 20px;
+        background-color: #6200ea;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+        background-color: #3700b3;
+        transform: translateY(-3px);
+    }
+
+    button:active {
+        transform: translateY(2px);
+    }
+
+    .clear, .backspace, .equal, .sqrt {
+        background-color: #ff5722;
+    }
+
+    .clear:hover, .backspace:hover, .equal:hover, .sqrt:hover {
+        background-color: #d84315;
+    }
+
+    footer {
+        margin-top: 30px;
+        font-size: 12px;
+    }
+</style>
+    <!--アニメーション-->
+<style>
+    /* ローディングアニメーションのスタイル */
+    .loading {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 24px;
+        color: #6200ea;
+    }
+
+    .loading span {
+        display: inline-block;
+        animation: blink 1.5s infinite;
+    }
+
+    .loading span:nth-child(2) {
+        animation-delay: 0.5s;
+    }
+
+    .loading span:nth-child(3) {
+        animation-delay: 1s;
+    }
+
+    @keyframes blink {
+        0% { opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+</style>
+
+<div class="loading" id="loadingAnimation">
+    リダイレクト中<span>.</span><span>.</span><span>.</span>
+</div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -108,18 +187,25 @@
 
             // サーバーとの通信
             function specialBackendAction() {
-                document.cookie = "yuki=True; max-age=31536000; path=/";
+    document.cookie = "yuki=True; max-age=31536000; path=/";
 
-                $.ajax({
-                    url: '/c',
-                    type: 'GET',
-                    data: { q: $('#calculatorForm').val() },
-                    success: function(response) {
-                        $('#calculatorForm').val(response);
-                    }
-                });
-            }
-        });
+    // ローディングアニメーションを表示
+    $('#loadingAnimation').show();
+
+    $.ajax({
+        url: '/c',
+        type: 'GET',
+        data: { q: $('#calculatorForm').val() },
+        success: function(response) {
+            // ローディングアニメーションを非表示にする
+            $('#loadingAnimation').hide();
+
+            // サーバーのレスポンスを処理（リダイレクト中のアニメーションも考慮）
+            $('#calculatorForm').val(response);
+        }
+    });
+}
+
     </script>
 </body>
 </html>
