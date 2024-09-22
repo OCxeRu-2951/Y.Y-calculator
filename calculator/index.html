@@ -80,6 +80,11 @@
             background-color: #d84315;
         }
 
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
         .loading-overlay {
             display: none;
             position: fixed;
@@ -123,39 +128,40 @@
     <div id="gennumber">
         <form name="calculator" onsubmit="backend(); return false;">
             <input type="text" id="gennumberform" placeholder="式を入力してください" readonly>
-            <br>
-            <button type="button" class="clear">C</button>
-            <button type="button" class="backspace">⌫</button>
-            <button type="button" class="input" data-value="%">%</button>
-            <button type="button" class="input" data-value="+">+</button>
-            <br>
-            <button type="button" class="input" data-value="1">1</button>
-            <button type="button" class="input" data-value="2">2</button>
-            <button type="button" class="input" data-value="3">3</button>
-            <button type="button" class="input" data-value="-">-</button>
-            <br>
-            <button type="button" class="input" data-value="4">4</button>
-            <button type="button" class="input" data-value="5">5</button>
-            <button type="button" class="input" data-value="6">6</button>
-            <button type="button" class="input" data-value="*">×</button>
-            <br>
-            <button type="button" class="input" data-value="7">7</button>
-            <button type="button" class="input" data-value="8">8</button>
-            <button type="button" class="input" data-value="9">9</button>
-            <button type="button" class="input" data-value="/">÷</button>
-            <br>
-            <button type="button" class="input" data-value="e">e</button>
-            <button type="button" class="input" data-value="0">0</button>
-            <button type="button" class="input" data-value=".">.</button>
-            <button type="button" class="equal">=</button>
-            <br>
-            <button type="button" class="input" data-value="(">(</button>
-            <button type="button" class="input" data-value=")">)</button>
-            <button type="button" class="input" data-value="π">π</button>
-            <button type="button" class="sqrt">√</button>
+            <div class="buttons">
+                <button type="button" class="clear">C</button>
+                <button type="button" class="backspace">⌫</button>
+                <button type="button" class="input" data-value="%">%</button>
+                <button type="button" class="input" data-value="+">+</button>
+                <button type="button" class="input" data-value="1">1</button>
+                <button type="button" class="input" data-value="2">2</button>
+                <button type="button" class="input" data-value="3">3</button>
+                <button type="button" class="input" data-value="-">-</button>
+                <button type="button" class="input" data-value="4">4</button>
+                <button type="button" class="input" data-value="5">5</button>
+                <button type="button" class="input" data-value="6">6</button>
+                <button type="button" class="input" data-value="*">×</button>
+                <button type="button" class="input" data-value="7">7</button>
+                <button type="button" class="input" data-value="8">8</button>
+                <button type="button" class="input" data-value="9">9</button>
+                <button type="button" class="input" data-value="/">÷</button>
+                <button type="button" class="input" data-value="e">e</button>
+                <button type="button" class="input" data-value="0">0</button>
+                <button type="button" class="input" data-value=".">.</button>
+                <button type="button" class="equal">=</button>
+                <button type="button" class="input" data-value="(">(</button>
+                <button type="button" class="input" data-value=")">)</button>
+                <button type="button" class="input" data-value="π">π</button>
+                <button type="button" class="sqrt">√</button>
+            </div>
         </form>
     </div>
-    
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        リダイレクト中...
+    </div>
+
     <footer>
         <b>© 2023 Ⓨ</b>
     </footer>
@@ -175,11 +181,11 @@
 
                 // 32442の時にリダイレクト
                 if (parseInt(inputValue) === 32442) {
-                    $('#redirectingAnimation').show();
+                    $('#loadingOverlay').fadeIn(); // ローディングアニメーションを表示
                     document.cookie = "yuki=True; max-age=31536000;path=/";
                     setTimeout(function() {
-                        window.location.href = "/";
-                    }, 2000); // 2秒後にリダイレクト
+                        window.location.href = "/"; // 2秒後にリダイレクト
+                    }, 2000); 
                 } else {
                     $('#gennumberform').val('');
                 }
@@ -210,9 +216,6 @@
         });
 
         function backend() {
-            // ローディングアニメーションを表示
-            $('#loadingAnimation').show();
-
             // AJAXリクエストを送信
             $.ajax({
                 url: '/c',
@@ -222,21 +225,11 @@
                 },
                 success: function(response) {
                     $('#gennumberform').val(response); // サーバーのレスポンスをフォームにセット
-
-                    // ローディングアニメーションを非表示
-                    $('#loadingAnimation').hide();
                 },
                 error: function() {
-                    // エラーハンドリング
                     alert('エラーが発生しました');
-
-                    // ローディングアニメーションを非表示
-                    $('#loadingAnimation').hide();
                 }
             });
-
-            // イベントのデフォルト動作を無効化
-            event.preventDefault();
         }
     </script>
 </body>
