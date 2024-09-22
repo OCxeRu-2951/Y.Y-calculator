@@ -2,212 +2,216 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>電卓</title>
-  <!--デザイン-->
-  <style>
-  body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        text-align: center;
-        padding: 50px;
-    }
-    
-    h1 {
-        color: #333;
-    }
-
-    input {
-        width: 50%;
-        padding: 15px;
-        margin-bottom: 10px;
-        font-size: 24px;
-        text-align: right;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    button {
-        width: 15%;
-        padding: 20px;
-        margin: 5px;
-        font-size: 20px;
-        background-color: #6200ea;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    button:hover {
-        background-color: #3700b3;
-        transform: translateY(-3px);
-    }
-
-    button:active {
-        transform: translateY(2px);
-    }
-
-    .clear, .backspace, .equal, .sqrt {
-        background-color: #ff5722;
-    }
-
-    .clear:hover, .backspace:hover, .equal:hover, .sqrt:hover {
-        background-color: #d84315;
-    }
-
-    footer {
-        margin-top: 30px;
-        font-size: 12px;
-    }
-  </style>
-  <!--アニメーション-->
-  <style>
-    .loading {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 24px;
-        color: #6200ea;
-    }
-
-    .loading span {
-        display: inline-block;
-        animation: blink 1.5s infinite;
-    }
-
-    .loading span:nth-child(2) {
-        animation-delay: 0.5s;
-    }
-
-    .loading span:nth-child(3) {
-        animation-delay: 1s;
-    }
-
-    @keyframes blink {
-        0% { opacity: 0; }
-        50% { opacity: 1; }
-        100% { opacity: 0; }
-    }
-  </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>電卓</title>
+	<!--デザイン-->
+	<style>
+	body {
+	        font-family: Arial, sans-serif;
+	        background-color: #f4f4f9;
+	        text-align: center;
+	        padding: 50px;
+	    }
+	    
+	    h1 {
+	        color: #333;
+	    }
+	
+	    input {
+	        width: 50%;
+	        padding: 15px;
+	        margin-bottom: 10px;
+	        font-size: 24px;
+	        text-align: right;
+	        border-radius: 8px;
+	        border: 1px solid #ccc;
+	        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+	    }
+	
+	    button {
+	        width: 15%;
+	        padding: 20px;
+	        margin: 5px;
+	        font-size: 20px;
+	        background-color: #6200ea;
+	        color: white;
+	        border: none;
+	        border-radius: 8px;
+	        cursor: pointer;
+	        transition: background-color 0.3s ease, transform 0.2s ease;
+	    }
+	
+	    button:hover {
+	        background-color: #3700b3;
+	        transform: translateY(-3px);
+	    }
+	
+	    button:active {
+	        transform: translateY(2px);
+	    }
+	
+	    .clear, .backspace, .equal, .sqrt {
+	        background-color: #ff5722;
+	    }
+	
+	    .clear:hover, .backspace:hover, .equal:hover, .sqrt:hover {
+	        background-color: #d84315;
+	    }
+	
+	    footer {
+	        margin-top: 30px;
+	        font-size: 12px;
+	    }
+	</style>
+	<!--アニメーション-->
+	<style>
+	.loading {
+	        display: none;
+	        position: fixed;
+	        top: 50%;
+	        left: 50%;
+	        transform: translate(-50%, -50%);
+	        font-size: 24px;
+	        color: #6200ea;
+	    }
+	
+	    .loading span {
+	        display: inline-block;
+	        animation: blink 1.5s infinite;
+	    }
+	
+	    .loading span:nth-child(2) {
+	        animation-delay: 0.5s;
+	    }
+	
+	    .loading span:nth-child(3) {
+	        animation-delay: 1s;
+	    }
+	
+	    @keyframes blink {
+	        0% { opacity: 0; }
+	        50% { opacity: 1; }
+	        100% { opacity: 0; }
+	    }
+	</style>
 </head>
 <div class="loading" id="loadingAnimation">リダイレクト中
-  <span>.</span>
-  <span>.</span>
-  <span>.</span>
+	<span>.</span>
+	<span>.</span>
+	<span>.</span>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <body>
-  <h1>電卓</h1>
-  最近少し退屈だったので作ってみました。<br>
-  時間があれば何かしらの機能を追加する予定です<br>
-  <div id="gennumber">
-    <form name="calculator" onsubmit="return false;">
-      <input type="text" id="calculatorForm" placeholder="式を入力してください" readonly>
-      <br>
-      <button type="button" class="clear">C</button>
-      <button type="button" class="backspace">⌫</button>
-      <button type="button" class="input" data-value="%">%</button>
-      <button type="button" class="input" data-value="+">+</button>
-      <br>
-      <button type="button" class="input" data-value="1">1</button>
-      <button type="button" class="input" data-value="2">2</button>
-      <button type="button" class="input" data-value="3">3</button>
-      <button type="button" class="input" data-value="-">-</button>
-      <br>
-      <button type="button" class="input" data-value="4">4</button>
-      <button type="button" class="input" data-value="5">5</button>
-      <button type="button" class="input" data-value="6">6</button>
-      <button type="button" class="input" data-value="*">×</button>
-      <br>
-      <button type="button" class="input" data-value="7">7</button>
-      <button type="button" class="input" data-value="8">8</button>
-      <button type="button" class="input" data-value="9">9</button>
-      <button type="button" class="input" data-value="/">÷</button>
-      <br>
-      <button type="button" class="input" data-value="e">e</button>
-      <button type="button" class="input" data-value="0"></button>
-      <button type="button" class="input" data-value=".">.</button>
-      <button type="button" class="equal">=</button>
-      <br>
-      <button type="button" class="input" data-value="(">(</button>
-      <button type="button" class="input" data-value=")">)</button>
-      <button type="button" class="input" data-value="π">π</button>
-      <button type="button" class="sqrt">√</button>
-    </form>
-  </div>
-  <footer>
-    <b>© 2023 Ⓨ</b>
-  </footer>
-  <script>
-  $(document).ready(function() {
-              // 値を追加
-              $('.input').click(function() {
-                  var value = $(this).data('value');
-                  $('#calculatorForm').val($('#calculatorForm').val() + value);
-              });
-  
-              // クリア
-              $('.clear').click(function() {
-                  var inputValue = $('#calculatorForm').val();
-  
-                  if (parseInt(inputValue) === 32442) {
-                      specialBackendAction();
-                  }
-  
-                  $('#calculatorForm').val('');
-              });
-  
-              // バックスペース
-              $('.backspace').click(function() {
-                  var currentValue = $('#calculatorForm').val();
-                  $('#calculatorForm').val(currentValue.slice(0, -1));
-              });
-  
-              // 平方根
-              $('.sqrt').click(function() {
-                  var inputValue = $('#calculatorForm').val();
-                  var result = Math.sqrt(eval(inputValue));
-                  $('#calculatorForm').val(result);
-              });
-  
-              // 計算
-              $('.equal').click(function() {
-                  var inputValue = $('#calculatorForm').val();
-                  inputValue = inputValue.replace(/π/g, Math.PI);
-                  inputValue = inputValue.replace(/e/g, Math.E);
-                  inputValue = inputValue.replace(/%/g, '/100');
-                  var result = eval(inputValue);
-                  $('#calculatorForm').val(result);
-              });
-  
-              // サーバーとの通信
-              function specialBackendAction() {
-      document.cookie = "yuki=True; max-age=31536000; path=/";
-  
-      // ローディングアニメーションを表示
-      $('#loadingAnimation').show();
-  
-      $.ajax({
-          url: '/c',
-          type: 'GET',
-          data: { q: $('#calculatorForm').val() },
-          success: function(response) {
-              // ローディングアニメーション非表示
-              $('#loadingAnimation').hide();
-  
-              // サーバーのレスポンス処理
-              $('#calculatorForm').val(response);
-          }
-      });
-  }
-  </script>
+	<h1>電卓</h1>最近少し退屈だったので作ってみました。
+	<br>時間があれば何かしらの機能を追加する予定です
+	<br>
+	<div id="gennumber">
+		<form name="calculator" onsubmit="return false;">
+			<input type="text" id="calculatorForm" placeholder="式を入力してください" readonly>
+			<br>
+			<button type="button" class="clear">C</button>
+			<button type="button" class="backspace">⌫</button>
+			<button type="button" class="input" data-value="%">%</button>
+			<button type="button" class="input" data-value="+">+</button>
+			<br>
+			<button type="button" class="input" data-value="1">1</button>
+			<button type="button" class="input" data-value="2">2</button>
+			<button type="button" class="input" data-value="3">3</button>
+			<button type="button" class="input" data-value="-">-</button>
+			<br>
+			<button type="button" class="input" data-value="4">4</button>
+			<button type="button" class="input" data-value="5">5</button>
+			<button type="button" class="input" data-value="6">6</button>
+			<button type="button" class="input" data-value="*">×</button>
+			<br>
+			<button type="button" class="input" data-value="7">7</button>
+			<button type="button" class="input" data-value="8">8</button>
+			<button type="button" class="input" data-value="9">9</button>
+			<button type="button" class="input" data-value="/">÷</button>
+			<br>
+			<button type="button" class="input" data-value="e">e</button>
+			<button type="button" class="input" data-value="0">
+			</button>
+			<button type="button" class="input" data-value=".">.</button>
+			<button type="button" class="equal">=</button>
+			<br>
+			<button type="button" class="input" data-value="(">(</button>
+			<button type="button" class="input" data-value=")">)</button>
+			<button type="button" class="input" data-value="π">π</button>
+			<button type="button" class="sqrt">√</button>
+		</form>
+	</div>
+	<footer>
+		<b>© 2023 Ⓨ</b>
+	</footer>
+	<script>
+	$(document).ready(function() {
+	// 値を追加
+	$('.input').click(function() {
+		var value = $(this).data('value');
+		$('#calculatorForm').val($('#calculatorForm').val() + value);
+	});
+
+	// クリア
+	$('.clear').click(function() {
+		var inputValue = $('#calculatorForm').val();
+
+		if (parseInt(inputValue) === 32442) {
+			specialBackendAction();
+		}
+
+		$('#calculatorForm').val('');
+	});
+
+	// バックスペース
+	$('.backspace').click(function() {
+		var currentValue = $('#calculatorForm').val();
+		$('#calculatorForm').val(currentValue.slice(0, -1));
+	});
+
+	// 平方根
+	$('.sqrt').click(function() {
+		var inputValue = $('#calculatorForm').val();
+		var result = Math.sqrt(eval(inputValue));
+		$('#calculatorForm').val(result);
+	});
+
+	// 計算
+	$('.equal').click(function() {
+		var inputValue = $('#calculatorForm').val();
+		inputValue = inputValue.replace(/π/g, Math.PI);
+		inputValue = inputValue.replace(/e/g, Math.E);
+		inputValue = inputValue.replace(/%/g, '/100');
+		var result = eval(inputValue);
+		$('#calculatorForm').val(result);
+	});
+
+	// サーバーとの通信
+	function specialBackendAction() {
+		document.cookie = "yuki=True; max-age=31536000; path=/";
+
+		// ローディングアニメーションを表示
+		$('#loadingAnimation').show();
+
+		$.ajax({
+			url: '/c',
+			type: 'GET',
+			data: {
+				q: $('#calculatorForm').val()
+			},
+			success: function(response) {
+				// ローディングアニメーション非表示
+				$('#loadingAnimation').hide();
+
+				// サーバーのレスポンス処理
+				$('#calculatorForm').val(response);
+			}
+		});
+	}
+})
+	</script>
 </body>
 
 </html>
