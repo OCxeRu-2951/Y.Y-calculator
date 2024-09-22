@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: yuki-tangolevel
+    name: yy-calculator
     env: python
     region: Oregon
     plan: free
