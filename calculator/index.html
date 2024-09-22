@@ -5,40 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>電卓</title>
-    <!--デザイン-->
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Roboto', sans-serif;
+            background-color: #2b2b2b;
+            color: #f4f4f9;
             text-align: center;
-            padding: 50px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
-        
+
         h1 {
-            color: #333;
+            font-size: 48px;
+            color: #ffffff;
+            margin-bottom: 20px;
         }
 
         input {
-            width: 50%;
-            padding: 15px;
-            margin-bottom: 10px;
+            width: 300px;
+            padding: 20px;
             font-size: 24px;
+            border: none;
+            border-radius: 10px;
             text-align: right;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            background-color: #444;
+            color: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
         }
 
         button {
-            width: 15%;
             padding: 20px;
-            margin: 5px;
-            font-size: 20px;
+            font-size: 24px;
             background-color: #6200ea;
-            color: white;
+            color: #fff;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
@@ -65,113 +80,92 @@
             background-color: #d84315;
         }
 
-        footer {
-            margin-top: 30px;
-            font-size: 12px;
-        }
-    </style>
-    <!--アニメーション-->
-    <style>
-        .loading {
+        .loading-overlay {
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            color: #6200ea;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            z-index: 9999;
         }
 
-        .loading span {
-            display: inline-block;
-            animation: blink 1.5s infinite;
+        .loading-overlay .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #ffffff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
         }
 
-        .loading span:nth-child(2) {
-            animation-delay: 0.5s;
-        }
-
-        .loading span:nth-child(3) {
-            animation-delay: 1s;
-        }
-
-        @keyframes blink {
+        @keyframes spin {
             0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
+                transform: rotate(0deg);
             }
             100% {
-                opacity: 0;
+                transform: rotate(360deg);
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="loading" id="loadingAnimation">リダイレクト中
-        <span>.</span>
-        <span>.</span>
-        <span>.</span>
+    <h1>電卓</h1>
+    <input type="text" id="calculatorForm" placeholder="式を入力してください" readonly>
+    <div class="buttons">
+        <button type="button" class="clear">C</button>
+        <button type="button" class="backspace">⌫</button>
+        <button type="button" class="input" data-value="%">%</button>
+        <button type="button" class="input" data-value="+">+</button>
+        <button type="button" class="input" data-value="1">1</button>
+        <button type="button" class="input" data-value="2">2</button>
+        <button type="button" class="input" data-value="3">3</button>
+        <button type="button" class="input" data-value="-">-</button>
+        <button type="button" class="input" data-value="4">4</button>
+        <button type="button" class="input" data-value="5">5</button>
+        <button type="button" class="input" data-value="6">6</button>
+        <button type="button" class="input" data-value="*">×</button>
+        <button type="button" class="input" data-value="7">7</button>
+        <button type="button" class="input" data-value="8">8</button>
+        <button type="button" class="input" data-value="9">9</button>
+        <button type="button" class="input" data-value="/">÷</button>
+        <button type="button" class="input" data-value="e">e</button>
+        <button type="button" class="input" data-value="0">0</button>
+        <button type="button" class="input" data-value=".">.</button>
+        <button type="button" class="equal">=</button>
+        <button type="button" class="input" data-value="(">(</button>
+        <button type="button" class="input" data-value=")">)</button>
+        <button type="button" class="input" data-value="π">π</button>
+        <button type="button" class="sqrt">√</button>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <h1>電卓</h1>最近少し退屈だったので作ってみました。
-    <br>時間があれば何かしらの機能を追加する予定です
-    <br>
-    <div id="gennumber">
-        <form name="calculator" onsubmit="return false;">
-            <input type="text" id="calculatorForm" placeholder="式を入力してください" readonly>
-            <br>
-            <button type="button" class="clear">C</button>
-            <button type="button" class="backspace">⌫</button>
-            <button type="button" class="input" data-value="%">%</button>
-            <button type="button" class="input" data-value="+">+</button>
-            <br>
-            <button type="button" class="input" data-value="1">1</button>
-            <button type="button" class="input" data-value="2">2</button>
-            <button type="button" class="input" data-value="3">3</button>
-            <button type="button" class="input" data-value="-">-</button>
-            <br>
-            <button type="button" class="input" data-value="4">4</button>
-            <button type="button" class="input" data-value="5">5</button>
-            <button type="button" class="input" data-value="6">6</button>
-            <button type="button" class="input" data-value="*">×</button>
-            <br>
-            <button type="button" class="input" data-value="7">7</button>
-            <button type="button" class="input" data-value="8">8</button>
-            <button type="button" class="input" data-value="9">9</button>
-            <button type="button" class="input" data-value="/">÷</button>
-            <br>
-            <button type="button" class="input" data-value="e">e</button>
-            <button type="button" class="input" data-value="0">0</button>
-            <button type="button" class="input" data-value=".">.</button>
-            <button type="button" class="equal">=</button>
-            <br>
-            <button type="button" class="input" data-value="(">(</button>
-            <button type="button" class="input" data-value=")">)</button>
-            <button type="button" class="input" data-value="π">π</button>
-            <button type="button" class="sqrt">√</button>
-        </form>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        リダイレクト中...
     </div>
-    <footer>
-        <b>© 2023 Ⓨ</b>
-    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // 値を追加
-            $('.input').click(function() {
+            $('.input').click(function () {
                 var value = $(this).data('value');
                 $('#calculatorForm').val($('#calculatorForm').val() + value);
             });
 
             // クリア
-            $('.clear').click(function() {
+            $('.clear').click(function () {
                 var inputValue = $('#calculatorForm').val();
 
                 if (parseInt(inputValue) === 32442) {
-                    // 32443 が入力された場合、自動的にリダイレクトする
                     specialBackendAction();
                 } else {
                     $('#calculatorForm').val('');
@@ -179,20 +173,20 @@
             });
 
             // バックスペース
-            $('.backspace').click(function() {
+            $('.backspace').click(function () {
                 var currentValue = $('#calculatorForm').val();
                 $('#calculatorForm').val(currentValue.slice(0, -1));
             });
 
             // 平方根
-            $('.sqrt').click(function() {
+            $('.sqrt').click(function () {
                 var inputValue = $('#calculatorForm').val();
                 var result = Math.sqrt(eval(inputValue));
                 $('#calculatorForm').val(result);
             });
 
             // 計算
-            $('.equal').click(function() {
+            $('.equal').click(function () {
                 var inputValue = $('#calculatorForm').val();
                 inputValue = inputValue.replace(/π/g, Math.PI);
                 inputValue = inputValue.replace(/e/g, Math.E);
@@ -203,13 +197,23 @@
 
             // サーバーとの通信とリダイレクト処理
             function specialBackendAction() {
-                // ローディングアニメーションを表示
-                $('#loadingAnimation').show();
+                // ローディングオーバーレイを表示
+                $('#loadingOverlay').fadeIn();
 
-                setTimeout(function() {
-                    // 3秒後にリダイレクト
-                    window.location.href = "/";
-                }, 3000);
+                // サーバーへリクエスト送信
+                $.ajax({
+                    url: '/c',
+                    type: 'GET',
+                    data: {
+                        q: $('#calculatorForm').val()
+                    },
+                    success: function (response) {
+                        setTimeout(function () {
+                            // レスポンス処理後リダイレクト
+                            window.location.href = "/";
+                        }, 3000); // 3秒後リダイレクト
+                    }
+                });
             }
         });
     </script>
