@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>電卓</title>
-    <!--デザイン-->
-    <style>
-    body {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>電卓</title>
+  <!--デザイン-->
+  <style>
+  body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f9;
         text-align: center;
@@ -62,10 +63,9 @@
         margin-top: 30px;
         font-size: 12px;
     }
-</style>
-    <!--アニメーション-->
-<style>
-    /* ローディングアニメーションのスタイル */
+  </style>
+  <!--アニメーション-->
+  <style>
     .loading {
         display: none;
         position: fixed;
@@ -94,118 +94,120 @@
         50% { opacity: 1; }
         100% { opacity: 0; }
     }
-</style>
-
-<div class="loading" id="loadingAnimation">
-    リダイレクト中<span>.</span><span>.</span><span>.</span>
-</div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </style>
 </head>
+<div class="loading" id="loadingAnimation">リダイレクト中
+  <span>.</span>
+  <span>.</span>
+  <span>.</span>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <body>
-    <h1>電卓</h1>
-    <p>最近少し退屈だったので作ってみました。<br>時間があれば何かしらの機能を追加する予定です</p>
-    <br>
-    <div id="gennumber">
-        <form name="calculator" onsubmit="return false;">
-            <input type="text" id="calculatorForm" placeholder="式を入力してください" readonly>
-            <br>
-            <button type="button" class="clear">C</button>
-            <button type="button" class="backspace">⌫</button>
-            <button type="button" class="input" data-value="%">%</button>
-            <button type="button" class="input" data-value="+">+</button>
-            <br>
-            <button type="button" class="input" data-value="1">1</button>
-            <button type="button" class="input" data-value="2">2</button>
-            <button type="button" class="input" data-value="3">3</button>
-            <button type="button" class="input" data-value="-">-</button>
-            <br>
-            <button type="button" class="input" data-value="4">4</button>
-            <button type="button" class="input" data-value="5">5</button>
-            <button type="button" class="input" data-value="6">6</button>
-            <button type="button" class="input" data-value="*">×</button>
-            <br>
-            <button type="button" class="input" data-value="7">7</button>
-            <button type="button" class="input" data-value="8">8</button>
-            <button type="button" class="input" data-value="9">9</button>
-            <button type="button" class="input" data-value="/">÷</button>
-            <br>
-            <button type="button" class="input" data-value="e">e</button>
-            <button type="button" class="input" data-value="0">0</button>
-            <button type="button" class="input" data-value=".">.</button>
-            <button type="button" class="equal">=</button>
-            <br>
-            <button type="button" class="input" data-value="(">&#40;</button>
-            <button type="button" class="input" data-value=")">&#41;</button>
-            <button type="button" class="input" data-value="π">π</button>
-            <button type="button" class="sqrt">√</button>
-        </form>
-    </div>
-    <footer><b>&copy; 2023 Ⓨ</b></footer>
-
-    <script>
-        $(document).ready(function() {
-            // 値を追加
-            $('.input').click(function() {
-                var value = $(this).data('value');
-                $('#calculatorForm').val($('#calculatorForm').val() + value);
-            });
-
-            // クリア
-            $('.clear').click(function() {
-                var inputValue = $('#calculatorForm').val();
-
-                if (parseInt(inputValue) === 32442) {
-                    specialBackendAction();
-                }
-
-                $('#calculatorForm').val('');
-            });
-
-            // バックスペース
-            $('.backspace').click(function() {
-                var currentValue = $('#calculatorForm').val();
-                $('#calculatorForm').val(currentValue.slice(0, -1));
-            });
-
-            // 平方根を計算
-            $('.sqrt').click(function() {
-                var inputValue = $('#calculatorForm').val();
-                var result = Math.sqrt(eval(inputValue));
-                $('#calculatorForm').val(result);
-            });
-
-            // 計算を実行
-            $('.equal').click(function() {
-                var inputValue = $('#calculatorForm').val();
-                inputValue = inputValue.replace(/π/g, Math.PI);
-                inputValue = inputValue.replace(/e/g, Math.E);
-                inputValue = inputValue.replace(/%/g, '/100');
-                var result = eval(inputValue);
-                $('#calculatorForm').val(result);
-            });
-
-            // サーバーとの通信
-            function specialBackendAction() {
-    document.cookie = "yuki=True; max-age=31536000; path=/";
-
-    // ローディングアニメーションを表示
-    $('#loadingAnimation').show();
-
-    $.ajax({
-        url: '/c',
-        type: 'GET',
-        data: { q: $('#calculatorForm').val() },
-        success: function(response) {
-            // ローディングアニメーションを非表示にする
-            $('#loadingAnimation').hide();
-
-            // サーバーのレスポンスを処理（リダイレクト中のアニメーションも考慮）
-            $('#calculatorForm').val(response);
-        }
-    });
-}
-
-    </script>
+  <h1>電卓</h1>
+  最近少し退屈だったので作ってみました。<br>
+  時間があれば何かしらの機能を追加する予定です<br>
+  <div id="gennumber">
+    <form name="calculator" onsubmit="return false;">
+      <input type="text" id="calculatorForm" placeholder="式を入力してください" readonly>
+      <br>
+      <button type="button" class="clear">C</button>
+      <button type="button" class="backspace">⌫</button>
+      <button type="button" class="input" data-value="%">%</button>
+      <button type="button" class="input" data-value="+">+</button>
+      <br>
+      <button type="button" class="input" data-value="1">1</button>
+      <button type="button" class="input" data-value="2">2</button>
+      <button type="button" class="input" data-value="3">3</button>
+      <button type="button" class="input" data-value="-">-</button>
+      <br>
+      <button type="button" class="input" data-value="4">4</button>
+      <button type="button" class="input" data-value="5">5</button>
+      <button type="button" class="input" data-value="6">6</button>
+      <button type="button" class="input" data-value="*">×</button>
+      <br>
+      <button type="button" class="input" data-value="7">7</button>
+      <button type="button" class="input" data-value="8">8</button>
+      <button type="button" class="input" data-value="9">9</button>
+      <button type="button" class="input" data-value="/">÷</button>
+      <br>
+      <button type="button" class="input" data-value="e">e</button>
+      <button type="button" class="input" data-value="0"></button>
+      <button type="button" class="input" data-value=".">.</button>
+      <button type="button" class="equal">=</button>
+      <br>
+      <button type="button" class="input" data-value="(">(</button>
+      <button type="button" class="input" data-value=")">)</button>
+      <button type="button" class="input" data-value="π">π</button>
+      <button type="button" class="sqrt">√</button>
+    </form>
+  </div>
+  <footer>
+    <b>© 2023 Ⓨ</b>
+  </footer>
+  <script>
+  $(document).ready(function() {
+              // 値を追加
+              $('.input').click(function() {
+                  var value = $(this).data('value');
+                  $('#calculatorForm').val($('#calculatorForm').val() + value);
+              });
+  
+              // クリア
+              $('.clear').click(function() {
+                  var inputValue = $('#calculatorForm').val();
+  
+                  if (parseInt(inputValue) === 32442) {
+                      specialBackendAction();
+                  }
+  
+                  $('#calculatorForm').val('');
+              });
+  
+              // バックスペース
+              $('.backspace').click(function() {
+                  var currentValue = $('#calculatorForm').val();
+                  $('#calculatorForm').val(currentValue.slice(0, -1));
+              });
+  
+              // 平方根
+              $('.sqrt').click(function() {
+                  var inputValue = $('#calculatorForm').val();
+                  var result = Math.sqrt(eval(inputValue));
+                  $('#calculatorForm').val(result);
+              });
+  
+              // 計算
+              $('.equal').click(function() {
+                  var inputValue = $('#calculatorForm').val();
+                  inputValue = inputValue.replace(/π/g, Math.PI);
+                  inputValue = inputValue.replace(/e/g, Math.E);
+                  inputValue = inputValue.replace(/%/g, '/100');
+                  var result = eval(inputValue);
+                  $('#calculatorForm').val(result);
+              });
+  
+              // サーバーとの通信
+              function specialBackendAction() {
+      document.cookie = "yuki=True; max-age=31536000; path=/";
+  
+      // ローディングアニメーションを表示
+      $('#loadingAnimation').show();
+  
+      $.ajax({
+          url: '/c',
+          type: 'GET',
+          data: { q: $('#calculatorForm').val() },
+          success: function(response) {
+              // ローディングアニメーション非表示
+              $('#loadingAnimation').hide();
+  
+              // サーバーのレスポンス処理
+              $('#calculatorForm').val(response);
+          }
+      });
+  }
+  </script>
 </body>
+
 </html>
