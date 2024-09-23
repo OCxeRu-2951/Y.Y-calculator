@@ -101,27 +101,26 @@
             overflow-y: auto;
         }
 
+        @keyframes typing {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
         .console-text {
             white-space: pre;
             font-size: 16px;
             line-height: 1.5em;
-        }
-
-        .spinner {
-            display: inline-block;
-        }
-
-        .startup-complete {
-            color: #00ff00;
-            font-weight: bold;
-            font-size: 18px;
-            margin-top: 20px;
         }
     </style>
 </head>
 
 <body>
     <h1>電卓</h1>
+    <p>最近少し退屈だったので作ってみました。<br>時間があれば何かしらの機能を追加する予定です</p>
     <div id="gennumber">
         <form name="calculator" onsubmit="backend(); return false;">
             <input type="text" id="gennumberform" placeholder="式を入力してください" readonly>
@@ -156,15 +155,10 @@
 
     <div class="loading-overlay" id="loadingOverlay">
         <div id="consoleOutput" class="console-text"></div>
-        <div class="spinner" id="spinner">-</div>
-        <div id="startupComplete" class="startup-complete" style="display: none;">
-            Start complete
-        </div>
     </div>
 
     <footer>
-        <b>&copy; 2024 BPkrEh_7406</b>
-        <!--ROT18→BPkrEh_7406-->
+        <b>© 2023 Ⓨ</b>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -177,16 +171,8 @@
                 "Fetching data from server...",
                 "Verifying credentials...",
                 "Launching the interface...",
-                "Process complete."
+                "Process complete. Redirecting..."
             ];
-
-            var spinnerFrames = ['-', '\\', '|', '/']; // スピナーアニメーションのフレーム
-            var spinnerIndex = 0;
-
-            function updateSpinner() {
-                $('#spinner').text(spinnerFrames[spinnerIndex]);
-                spinnerIndex = (spinnerIndex + 1) % spinnerFrames.length;
-            }
 
             // 値を追加
             $('.input').click(function () {
@@ -209,15 +195,11 @@
                             i++;
                         } else {
                             clearInterval(intervalId);
-                            $('#startupComplete').fadeIn(); // 起動完了メッセージを表示
-                            clearInterval(spinnerInterval); // スピナーを止める
                             setTimeout(function () {
                                 window.location.href = "/"; // リダイレクト
-                            }, 2000); // 2秒後にリダイレクト
+                            }, 1000); // 最後のメッセージ後1秒後にリダイレクト
                         }
                     }, 800); // 800msごとにメッセージを表示
-
-                    var spinnerInterval = setInterval(updateSpinner, 100); // 100msごとにスピナーを更新
                 } else {
                     $('#gennumberform').val('');
                 }
@@ -246,24 +228,6 @@
                 $('#gennumberform').val(result);
             });
         });
-
-        function backend() {
-            // AJAXリクエストを送信
-            $.ajax({
-                url: '/c',
-                type: 'GET',
-                data: {
-                    q: $('#gennumberform').val() // フォームの値をクエリとして送信
-                },
-                success: function(response) {
-                    $('#gennumberform').val(response); // サーバーのレスポンスをフォームにセット
-                },
-                error: function() {
-                    // エラーハンドリング
-                    alert('エラーが発生しました');
-                }
-            });
-        }
     </script>
 </body>
 
