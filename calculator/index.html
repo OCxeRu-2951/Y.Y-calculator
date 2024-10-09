@@ -56,6 +56,10 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease, transform 0.2s ease;
             touch-action: manipulation;
+            -webkit-user-select: none; /* SafariやChrome用 */
+            -moz-user-select: none;    /* Firefox用 */
+            -ms-user-select: none;     /* Internet Explorer用 */
+            user-select: none;         /* 標準プロパティ */
         }
 
         button:hover {
