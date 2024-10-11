@@ -1,9 +1,11 @@
-# Over view  
+# Y.Y-calculator
+
+## Over view  
 
 電卓のリポジトリが削除されていたので改造して作ってみた  
 少しjsを齧っただけの初心者なのでわからないところはChatGPTの力を借りた。  
 
-# Creat instance  
+## Creat instance  
 
 以下にある**ボタン**を**クリック**すると**インスタンスが作成**できる。  
 (なお、URLはデフォルトである<font color="slyblue"> ***yy-calculator-[ランダムな英数字]*** </font>となる)  
