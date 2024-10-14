@@ -211,22 +211,12 @@
                 inputValue = inputValue.replace(/π/g, Math.PI);
                 inputValue = inputValue.replace(/e/g, Math.E);
                 inputValue = inputValue.replace(/%/g, '/100');
-
-                try {
-                    var result = eval(inputValue);
-                    $('#gennumberform').val(result);
-                } catch (error) {
-                    alert('計算中にエラーが発生しました。');
-                    $('#gennumberform').val(''); // エラー時にクリア
-                }
+                var result = eval(inputValue);
+                $('#gennumberform').val(result);
             });
 
             // キーボードショートカット
             $(document).keydown(function(event) {
-                if (event.key === 'Enter') { // 誤送信防止機能
-                    event.preventDefault();
-                    $('.equal').click();
-                } else {
                 switch (event.key) {
                     case '0': $('.input[data-value="0"]').click(); break;
                     case '1': $('.input[data-value="1"]').click(); break;
