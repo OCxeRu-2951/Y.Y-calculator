@@ -211,8 +211,14 @@
                 inputValue = inputValue.replace(/π/g, Math.PI);
                 inputValue = inputValue.replace(/e/g, Math.E);
                 inputValue = inputValue.replace(/%/g, '/100');
-                var result = eval(inputValue);
-                $('#gennumberform').val(result);
+
+                try {
+                    var result = eval(inputValue);
+                    $('#gennumberform').val(result);
+                } catch (error) {
+                    alert('計算中にエラーが発生しました。');
+                    $('#gennumberform').val(''); 
+                }
             });
 
             // キーボードショートカット
