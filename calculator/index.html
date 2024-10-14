@@ -45,7 +45,6 @@
             line-height: normal;
         }
 
-
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -214,6 +213,33 @@
                 inputValue = inputValue.replace(/%/g, '/100');
                 var result = eval(inputValue);
                 $('#gennumberform').val(result);
+            });
+
+            // キーボードショートカット
+            $(document).keydown(function(event) {
+                switch (event.key) {
+                    case '0': $('.input[data-value="0"]').click(); break;
+                    case '1': $('.input[data-value="1"]').click(); break;
+                    case '2': $('.input[data-value="2"]').click(); break;
+                    case '3': $('.input[data-value="3"]').click(); break;
+                    case '4': $('.input[data-value="4"]').click(); break;
+                    case '5': $('.input[data-value="5"]').click(); break;
+                    case '6': $('.input[data-value="6"]').click(); break;
+                    case '7': $('.input[data-value="7"]').click(); break;
+                    case '8': $('.input[data-value="8"]').click(); break;
+                    case '9': $('.input[data-value="9"]').click(); break;
+                    case '+': $('.input[data-value="+"]').click(); break;
+                    case '-': $('.input[data-value="-"]').click(); break;
+                    case '*': $('.input[data-value="*"]').click(); break; 
+                    case '/': $('.input[data-value="/"]').click(); break;
+                    case 'Enter': $('.equal').click(); break;
+                    case 'Backspace': $('.backspace').click(); break;
+                    case 'Escape': $('.clear').click(); break;
+                    case 's': $('.sqrt').click(); break;
+                    case 'p': $('.input[data-value="π"]').click(); break;
+                    case 'e': $('.input[data-value="e"]').click(); break;
+                    case '%': $('.input[data-value="%"]').click(); break;
+                }
             });
         });
 
