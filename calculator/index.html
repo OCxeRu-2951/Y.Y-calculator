@@ -158,34 +158,18 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+    .scf {
+        color:black;
+        text-align: left;
+    }
     </style>
 </head>
 
 <body>
-    <div id="shortcut-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>キーボードショートカット</h2>
-            <ul>
-                <li><strong>0~9の数字キー</strong>…数字</li>
-                <li><strong>+</strong>…+</li>
-                <li><strong>-</strong>…-</li>
-                <li><strong>*</strong>…*</li>
-                <li><strong>/</strong>…/</li>
-                <li><strong>%</strong>…%</li>
-                <li><strong>s</strong>…√</li>
-                <li><strong>p</strong>…π</li>
-                <li><strong>e</strong>…e</li>
-                <li><strong>Enter</strong>…計算</li>
-                <li><strong>Backspace</strong>……文字を消す</li>
-                <li><strong>Escape</strong>…クリア</li>
-                <li><strong>Shift + H</strong>ショートカットキーヘルプ</li>
-            </ul>
-        </div>
-    </div>
     <h1>電卓</h1>
     <div id="gennumber">
-        Shift + Hでショートカットヘルプを表示
+        Ctrl + Hでショートカットヘルプを表示
         <form name="calculator" onsubmit="backend(); return false;">
             <input type="text" id="gennumberform" placeholder="式を入力してください" readonly>
             <div class="buttons">
@@ -215,6 +199,28 @@
                 <button type="button" class="sqrt">√</button>
             </div>
         </form>
+    </div>
+
+    <div id="shortcut-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>キーボードショートカット</h2>
+            <ul class="scf">
+                <li><strong>0~9の数字キー</strong>…数字</li>
+                <li><strong>+</strong>…+</li>
+                <li><strong>-</strong>…-</li>
+                <li><strong>*</strong>…*</li>
+                <li><strong>/</strong>…/</li>
+                <li><strong>%</strong>…%</li>
+                <li><strong>s</strong>…√</li>
+                <li><strong>p</strong>…π</li>
+                <li><strong>e</strong>…e</li>
+                <li><strong>Enter</strong>…計算</li>
+                <li><strong>Backspace</strong>……文字を消す</li>
+                <li><strong>Escape</strong>…クリア</li>
+                <li><strong>Ctrl + H</strong>ショートカットキーヘルプ</li>
+            </ul>
+        </div>
     </div>
 
     <div class="loading-overlay" id="loadingOverlay">
