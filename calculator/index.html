@@ -199,22 +199,27 @@
             });
 
             // 平方根
-            $('.sqrt').click(function() {
+        $('.sqrt').click(function() {
+            try {
                 var inputValue = $('#gennumberform').val();
-                var result = Math.sqrt(eval(inputValue));
+                var result = Math.sqrt(safeEval(inputValue));
                 $('#gennumberform').val(result);
-            });
+            } catch (error) {
+                alert(error.message); // エラー処理
+            }
+        });
 
-            // 計算
-            $('.equal').click(function() {
+        // 計算
+        $('.equal').click(function() {
+            try {
                 var inputValue = $('#gennumberform').val();
-                inputValue = inputValue.replace(/π/g, Math.PI);
-                inputValue = inputValue.replace(/e/g, Math.E);
-                inputValue = inputValue.replace(/%/g, '/100');
-                var result = eval(inputValue);
+                var result = safeEval(inputValue);
                 $('#gennumberform').val(result);
-            });
-
+            } catch (error) {
+                alert(error.message); // エラー処理
+            }
+        });
+            
             // キーボードショートカット
             $(document).keydown(function(event) {
                 switch (event.key) {
