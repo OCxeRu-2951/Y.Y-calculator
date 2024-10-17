@@ -323,26 +323,24 @@
     </script>
     <!--modal-->
     <script>
-    const modal = document.getElementById("shortcut-modal");
-    const span = document.getElementsByClassName("close")[0];
-    
-    // Ctrl + H
-    document.addEventListener('keydown', function(event) {
-        if (event.ctrlKey && event.key === 'h') {
-            event.preventDefault();
-            modal.style.display = "block";
-        }
-    });
-    
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
+        const modal = $("#shortcut-modal");
+        const span = $(".close").eq(0);
+        // Ctrl + H
+        $(document).keydown(function(event) {
+            if (event.ctrlKey && event.key === 'h') {
+                event.preventDefault();
+                modal.show(); // jQueryのshow()メソッドを使う
+            }
+        });
+        span.click(function() {
+            modal.hide(); // jQueryのhide()メソッドを使う
+        });
+        $(window).click(function(event) {
+            if ($(event.target).is(modal)) {
+                modal.hide();
+            }
+        });
 
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
     </script>
 </body>
 
