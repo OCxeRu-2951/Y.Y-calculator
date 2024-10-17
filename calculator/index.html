@@ -47,8 +47,8 @@
 
         .buttons {
             display: grid;
-            grid-template-columns: repeat(4, 0.5fr);
-            gap: 10px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
         }
 
         button {
@@ -159,11 +159,11 @@
         cursor: pointer;
     }
 
-    .sckhh2 {
+    h2 {
         color:black;
     }
 
-    .sckh {
+    ul {
         color:black;
         text-align: left;
     }
@@ -172,8 +172,8 @@
 
 <body>
     <h1>電卓</h1>
+    Ctrl + Hでキーボードショートカットヘルプを表示
     <div id="gennumber">
-        Ctrl + Hでキーボードショートカットヘルプを表示
         <form name="calculator" onsubmit="backend(); return false;">
             <input type="text" id="gennumberform" placeholder="式を入力してください" readonly>
             <div class="buttons">
@@ -208,8 +208,8 @@
     <div id="shortcut-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2 class="sckhh2">キーボードショートカット</h2>
-            <ul class="sckh">
+            <h2>キーボードショートカット</h2>
+            <ul>
                 <li><strong>0~9の数字キー</strong>…数字</li>
                 <li><strong>各演算子のキー</strong>…各演算子</li>
                 <li><strong>s</strong>…√</li>
