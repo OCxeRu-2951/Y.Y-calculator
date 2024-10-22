@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: yuki-math-blog
+    name: yy-calculator
     env: python
     region: Oregon
     plan: free
