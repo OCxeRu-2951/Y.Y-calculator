@@ -1,10 +1,7 @@
 # Y.Y-calcuator  
 
-リポジトリ間違えてを消してしまったので復元しています。  
-10月中には完全に復元させると同時にページを追加します。  
-
-**↓デプロイ用↓**  
-<a href="https://render.com/deploy?repo=https://github.com/mochidukiyukimi/Yuki-Youtube-slim">
-<img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
-</a>
-
+偽装ページが電卓のインスタンスのリポジトリ。  
+思ったよりも早くに復元完了しました。  
+↓ここからデプロイ可能↓  
+<a href="https://render.com/deploy?repo=https://github.com/OCxeRu-2951/Y.Y-calculator">
+<img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render"></a>
