@@ -1,19 +1,80 @@
+<!DOCTYPE html>
 <html lang="ja">
-    <title></title>
-    <head>
-        <link rel="stylesheet" href="./css/home.css">
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script>
 
-        </script>
-        <style>
-        </style>
-    </head>
-    <body>
-        <div class="sidebar" id="sidebar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/calculator.css">
+    <title>電卓</title>
+</head>
 
+<body>
+    <h1>電卓</h1>
+    Ctrl + Hでキーボードショートカットヘルプを表示
+    <div id="gennumber">
+        <form name="calculator" onsubmit="backend(); return false;">
+            <input type="text" id="gennumberform" placeholder="式を入力してください" readonly>
+            <div class="buttons">
+                <button type="button" class="clear">C</button>
+                <button type="button" class="backspace">⌫</button>
+                <button type="button" class="input" data-value="%">%</button>
+                <button type="button" class="input" data-value="+">+</button>
+                <button type="button" class="input" data-value="1">1</button>
+                <button type="button" class="input" data-value="2">2</button>
+                <button type="button" class="input" data-value="3">3</button>
+                <button type="button" class="input" data-value="-">-</button>
+                <button type="button" class="input" data-value="4">4</button>
+                <button type="button" class="input" data-value="5">5</button>
+                <button type="button" class="input" data-value="6">6</button>
+                <button type="button" class="input" data-value="*">×</button>
+                <button type="button" class="input" data-value="7">7</button>
+                <button type="button" class="input" data-value="8">8</button>
+                <button type="button" class="input" data-value="9">9</button>
+                <button type="button" class="input" data-value="/">÷</button>
+                <button type="button" class="input" data-value="e">e</button>
+                <button type="button" class="input" data-value="0">0</button>
+                <button type="button" class="input" data-value=".">.</button>
+                <button type="button" class="equal">=</button>
+                <button type="button" class="input" data-value="(">(</button>
+                <button type="button" class="input" data-value=")">)</button>
+                <button type="button" class="input" data-value="π">π</button>
+                <button type="button" class="sqrt">√</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="sckhmodal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closesckhmodal">&times;</span>
+            <h2>キーボードショートカット</h2>
+            <ul>
+                <li><strong>0~9の数字キー</strong>…数字</li>
+                <li><strong>各演算子のキー</strong>…各演算子</li>
+                <li><strong>s</strong>…√</li>
+                <li><strong>p</strong>…π</li>
+                <li><strong>e</strong>…e</li>
+                <li><strong>Enter</strong>…計算</li>
+                <li><strong>Backspace</strong>……文字を消す</li>
+                <li><strong>Escape</strong>…クリア</li>
+                <li><strong>Ctrl + H</strong>…ショートカットキーヘルプ</li>
+            </ul>
         </div>
-        <h1>Home</h1>
+    </div>
 
-    </body>
+    <div id="fmodal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closefmodal">&times;</span>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScHobWksl2kPntm8IxwSKpJeUV3f6vv-A6NFJ4jMSS5IuacYg/viewform?embedded=true" width="640" height="471" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        起動中...
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/calculator.js"></script>
+</body>
+
 </html>
