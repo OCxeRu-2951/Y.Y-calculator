@@ -1,4 +1,5 @@
 {
+  "name": "yy-calculator",
   "version": 2,
   "builds": [
     {
