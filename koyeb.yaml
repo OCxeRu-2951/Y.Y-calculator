@@ -1,3 +1,4 @@
+name: yy-calculator
 services:
   - type: web
     name: yy-calculator
