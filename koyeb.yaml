@@ -1,6 +1,6 @@
-name: yycalculator
+name: yy-calculator
 services:
-  - name: math
+  - name: yy-calculator
     type: web
     env: python
     region: Oregon
