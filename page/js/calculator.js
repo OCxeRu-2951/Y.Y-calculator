@@ -93,29 +93,18 @@ function backend() {
 const sckhmodal = document.getElementById("sckhmodal");
 const closesckhmodal = document.getElementById("closesckhmodal");
 
-// fmodal
-const fmodal = document.getElementById("fmodal");
-const closefmodal = document.getElementById("closefmodal");
-
 // shortcutkey event
 document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && event.key === 'h' || event.key === 'H') {
         event.preventDefault();
         sckhmodal.style.display = "block"; // Ctrl + H
     }
-    if (event.ctrlKey && event.key === 'f' || event.key === 'F') {
-        event.preventDefault();
-        fmodal.style.display = "block"; // Ctrl + F
-    }
+   
 });
 
 // close
 closesckhmodal.onclick = function() {
     sckhmodal.style.display = "none";
-}
-
-closefmodal.onclick = function() {
-    fmodal.style.display = "none";
 }
 
 window.onclick = function(event) {
